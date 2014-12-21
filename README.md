@@ -5,7 +5,7 @@
 Upload, initialize and maintain configuration files for Capistrano 3.x outside of SCM.
 (or in SCM just different files for different stages - the choice is yours!)
 
-Say you're working in a small team on a Rails app, you've got a couple of environments and you have a `config/database.yml` that's got some secrets that differ per stage in it.
+Say you're working in a small team on a Rails app. You've got a couple of environments and you have a `config/database.yml` that's got some secrets that differ per stage in it.
 You'd like to maintain these secrets outside of source control but placing a `config/database.yml` on the server manually makes you nervous. What happens if it's lost? Did you upload the right one? Chaos. Stress. Sad face.
 
 Capistrano-upload-config to the rescue. You can maintain a version of `config/database.yml` per stage, with different contents if you wish, keep these outside of your source control and still upload them without manual fiddling.
@@ -81,7 +81,7 @@ $ cap staging config:init
  Created: config/foobar.staging.yml as empty file
 ```
 
-Can be used during a deploy, If your `:upload_config_files` and `:linked_files` are going to be the same I suggest hooking in before
+Can be used during a deploy. If your `:upload_config_files` and `:linked_files` are going to be the same I suggest hooking in before
 `deploy:check:linked_files` so that the shared directories have been created but the shared files not checked:
 
 ```ruby
@@ -100,7 +100,7 @@ set :upload_config_files, fetch(:linked_files)
 set :upload_config_example_suffix, '-example'
 ```
 
-By default your `:linked_files` are assumed to be config files, this might be totally wrong for your environment, never fear just:
+By default your `:linked_files` are assumed to be config files. This might be totally wrong for your environment, never fear just:
 
 ```ruby
 # in deploy.rb (or similar)
@@ -109,7 +109,7 @@ set :upload_config_files, %w{dir1/config.toml config/example.ini hidden/secrets.
 
 ```
 
-Note, capistrano-upload-config can only upload confir to your shared folder (and it's sub directories) so it's likely that `:upload_config_files` will be a subset of `:linked_files`.
+Note, capistrano-upload-config can only upload config to your shared folder (and its sub directories) so it's likely that `:upload_config_files` will be a subset of `:linked_files`.
 
 #### Example files
 
