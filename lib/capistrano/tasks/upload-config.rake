@@ -4,7 +4,7 @@ namespace :config do
   task :init do
     run_locally do
       fetch(:upload_config_files).each do |config|
-        local_path = CapistranoUploadConfig::Helpers.get_local_upload_config_name(config, fetch(:stage).to_s)
+        local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
         if File.exists?(local_path)
           warn "Already Exists: #{local_path}"
         else
@@ -25,7 +25,7 @@ namespace :config do
   task :check do
     run_locally do
       fetch(:upload_config_files).each do |config|
-        local_path = CapistranoUploadConfig::Helpers.get_local_upload_config_name(config, fetch(:stage).to_s)
+        local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
         if File.exists?(local_path)
           info "Found: #{local_path}"
         else
@@ -40,7 +40,7 @@ namespace :config do
     on release_roles :all do
       within shared_path do
         fetch(:upload_config_files).each do |config|
-          local_path = CapistranoUploadConfig::Helpers.get_local_upload_config_name(config, fetch(:stage).to_s)
+          local_path = CapistranoUploadConfig::Helpers.get_local_config_name(config, fetch(:stage).to_s)
           if File.exists?(local_path)
             info "Uploading config #{local_path} as #{config}"
             upload! StringIO.new(IO.read(local_path)), File.join(shared_path, config)
