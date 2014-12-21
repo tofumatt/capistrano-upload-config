@@ -81,7 +81,7 @@ $ cap staging config:init
  Created: config/foobar.staging.yml as empty file
 ```
 
-Can be used during a deploy, If your `:config_files` and `:linked_files` are going to be the same I suggest hooking in before
+Can be used during a deploy, If your `:upload_config_files` and `:linked_files` are going to be the same I suggest hooking in before
 `deploy:check:linked_files` so that the shared directories have been created but the shared files not checked:
 
 ```ruby
@@ -96,8 +96,8 @@ before 'deploy:check:linked_files', 'config:push'
 Configurable options, shown here with defaults:
 
 ```ruby
-set :config_files, fetch(:linked_files)
-set :config_example_suffix, '-example'
+set :upload_config_files, fetch(:linked_files)
+set :upload_config_example_suffix, '-example'
 ```
 
 By default your `:linked_files` are assumed to be config files, this might be totally wrong for your environment, never fear just:
@@ -105,11 +105,11 @@ By default your `:linked_files` are assumed to be config files, this might be to
 ```ruby
 # in deploy.rb (or similar)
 
-set :config_files, %w{dir1/config.toml config/example.ini hidden/secrets.json}
+set :upload_config_files, %w{dir1/config.toml config/example.ini hidden/secrets.json}
 
 ```
 
-Note, capistrano-upload-config can only upload confir to your shared folder (and it's sub directories) so it's likely that `:config_files` will be a subset of `:linked_files`.
+Note, capistrano-upload-config can only upload confir to your shared folder (and it's sub directories) so it's likely that `:upload_config_files` will be a subset of `:linked_files`.
 
 #### Example files
 
@@ -119,7 +119,7 @@ These will be used when running `config:init`. If your suffix differs, e.g. `con
 ```ruby
 # in deploy.rb (or similar)
 
-set :config_example_suffix, '.eg'
+set :upload_config_example_suffix, '.eg'
 
 ```
 
